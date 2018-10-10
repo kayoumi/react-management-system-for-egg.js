@@ -1,24 +1,21 @@
-import React, { Component } from 'react';
-import { Button, Steps, Icon } from 'antd';
+import React from 'react';
+import reducer from './reducers';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import layout from './components/layout'
 import './App.css';
 
-const Step = Steps.Step;
+const store = createStore(reducer);
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Steps>
-          <Step status="finish" title="Login" icon={<Icon type="user" />} />
-          <Step status="finish" title="Verification" icon={<Icon type="solution" />} />
-          <Step status="process" title="Pay" icon={<Icon type="loading" />} />
-          <Step status="wait" title="Done" icon={<Icon type="smile-o" />} />
-        </Steps>
-        <Icon type="down-circle-o" />
-        <Button type="primary">Button</Button>
-      </div>
-    );
-  }
-}
+const App = ({ store }) => (
+  <Provider store={ store }>
+    <Router>
+      <Switch>
+        <Route path='/' component={ layout } />
+      </Switch>
+    </Router>
+  </Provider>
+)
 
 export default App;
