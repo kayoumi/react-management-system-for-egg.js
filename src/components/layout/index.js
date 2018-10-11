@@ -12,17 +12,15 @@ const renderHeader = () => {
   return (
     <Header>
       <Row>
-        <Col 
+        <Col
           span={4}
-          className="header-logo"
         >
           <HeaderLogo></HeaderLogo>
-        </Col>  
-        
-        <Col 
-          span={3} 
+        </Col>
+
+        <Col
+          span={3}
           offset={16}
-          className="header-dropDown"
         >
           <HeaderDropdown></HeaderDropdown>
         </Col>
@@ -35,15 +33,15 @@ const renderContent = () => {
   return (
     <Content>
       <Row>
-      <Col 
-          span={5} 
+      <Col
+          span={5}
           offset={3}
           className="sidebar"
         >
           侧栏
         </Col>
-        <Col 
-          span={13} 
+        <Col
+          span={13}
           offset={1}
           className="main"
         >

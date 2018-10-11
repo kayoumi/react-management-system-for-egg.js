@@ -8,9 +8,9 @@ const info = () => {
 };
 
 const HeaderLogo = () => (
-    <a className="logo-box d-flex" href="#" title="logo" onClick={ info }>
+    <a className="logo-box d-flex flex-items-center" href="#" title="logo" onClick={ info }>
         <img src={ logoUrl } className="logo-img" alt="logo"></img>
-        <span className="logo-text d-flex">CandyBullet</span>
+        <span className="logo-text">CandyBullet</span>
     </a>
 );
 
