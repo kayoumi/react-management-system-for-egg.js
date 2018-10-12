@@ -1,19 +1,22 @@
 import React from 'react';
-import { Popover } from 'antd';
+import { Popover, Avatar, Badge } from 'antd';
 import './index.less';
 import headUrl from '../../assets/head_default.jpg';
 
+const userMessageCount = 1;
+
 const detailsMenu = (
     <ul>
-        <li>写文章</li>
-        <li>退出登录</li>
+        <li className="hdd-menu-item style-none hover-underline cursor-pointer f4">写文章</li>
+        <li className="hdd-menu-item style-none hover-underline cursor-pointer f4">退出登录</li>
     </ul>
 );
 
 const HeaderDropdown = () => (
-    <Popover className="d-flex float-right" content={ detailsMenu } title="详细菜单">
-        <img className="header-dp-head float-left" src={ headUrl } alt="user"></img>
-        <span className="dropdown-caret"></span>
+    <Popover className="d-flex float-right" placement="bottomRight" content={detailsMenu} trigger="click">
+        <Badge count={ userMessageCount }>
+            <Avatar shape="square" src={ headUrl }/>
+        </Badge>
     </Popover>
 );
 

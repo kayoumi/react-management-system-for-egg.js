@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import { Row, Col } from 'antd';
 import HeaderLogo from '../headerLogo';
 import HeaderDropdown from '../headerDropdown';
+import SidebarUser from '../sidebarUser';
 import './index.less';
 
 
@@ -11,7 +12,7 @@ const { Header, Content, Footer } = Layout;
 const renderHeader = () => {
   return (
     <Header>
-      <Row>
+      <Row className="d-flex flex-items-center">
         <Col
           span={4}
         >
@@ -38,7 +39,7 @@ const renderContent = () => {
           offset={3}
           className="sidebar"
         >
-          侧栏
+          <SidebarUser></SidebarUser>
         </Col>
         <Col
           span={13}
