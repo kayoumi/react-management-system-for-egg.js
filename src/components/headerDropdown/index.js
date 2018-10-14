@@ -13,7 +13,7 @@ const detailsMenu = (
 );
 
 const HeaderDropdown = () => (
-    <Popover className="d-flex float-right" placement="bottomRight" content={detailsMenu} trigger="click">
+    <Popover className="d-flex float-right cursor-pointer" placement="bottomRight" content={detailsMenu} trigger="click">
         <Badge count={ userMessageCount }>
             <Avatar shape="square" src={ headUrl }/>
         </Badge>

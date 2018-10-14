@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import HeaderLogo from '../headerLogo';
 import HeaderDropdown from '../headerDropdown';
 import SidebarUser from '../sidebarUser';
+import MainTab from '../mainTab';
 import './index.less';
 
 
@@ -35,18 +36,17 @@ const renderContent = () => {
     <Content>
       <Row>
       <Col
-          span={5}
+          span={4}
           offset={3}
-          className="sidebar"
         >
           <SidebarUser></SidebarUser>
         </Col>
         <Col
-          span={13}
+          span={14}
           offset={1}
-          className="main"
+          className="min-height-1080"
         >
-          内容
+          <MainTab></MainTab>
         </Col>
       </Row>
     </Content>

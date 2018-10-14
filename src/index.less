@@ -71,3 +71,48 @@ code {
 .width-200 {
   width: 200px;
 }
+
+.width-300 {
+  width: 380px;
+}
+
+.min-height-1080 {
+  min-height: 1080px;
+}
+
+.height-50 {
+  height: 50px;
+}
+
+// 文本溢出省略号
+/**** DEMO
+单行
+.text-overflow-ellipsis(1);
+多行
+ .text-overflow-ellipsis(2);
+****/
+.text-overflow-ellipsis(@line) when(@line=1){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-overflow-ellipsis(@line) when(@line>1){
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    --webkit-box-orient: vertical;
+    --webkit-line-clamp: @line;
+    word-break: break-all;
+}
+
+.text-ellipsis-1 {
+  .text-overflow-ellipsis(1);
+}
+
+.text-ellipsis-2 {
+  .text-overflow-ellipsis(2);
+}
+
+.text-ellipsis-3 {
+  .text-overflow-ellipsis(3);
+}
