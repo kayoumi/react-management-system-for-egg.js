@@ -35,7 +35,7 @@ const renderContent = () => {
   return (
     <Content>
       <Row>
-      <Col
+        <Col
           span={4}
           offset={3}
         >
@@ -53,6 +53,36 @@ const renderContent = () => {
   );
 };
 
+const renderLogin = () => {
+  return (
+    <Content>
+      <Row>
+        <Col
+          span={4}
+          offset={3}
+        >
+          <Login></Login>
+        </Col>
+      </Row>
+    </Content>
+  );
+};
+
+const renderSignUp = () => {
+  return (
+    <Content>
+      <Row>
+        <Col
+          span={4}
+          offset={3}
+        >
+          <SignUp></SignUp>
+        </Col>
+      </Row>
+    </Content>
+  );
+};
+
 const renderFooter = () => {
   return (
     <Footer>
@@ -62,10 +92,11 @@ const renderFooter = () => {
 };
 
 
-const Layouts =  () => (
+const Layouts =  (isLogin) => (
   <Layout>
     { renderHeader() }
-    { renderContent() }
+    {/* { isLogin ? renderContent() : renderLogin() } */}
+    { renderLogin() }
     { renderFooter() }
   </Layout>
 );
