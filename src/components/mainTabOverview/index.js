@@ -7,7 +7,7 @@ const { Meta } = Card;
 const oneCard = (title, description, tag) => (
     <Card
         hoverable
-        className="width-300 rounded-2 mb-3"
+        className="width-350 rounded-2 mb-3"
     >
         <Meta
         title={ title }
@@ -20,7 +20,7 @@ const oneCard = (title, description, tag) => (
 const MainTabOverview = () => (
     <div>
         <h2>个人最新文章</h2>
-        <div className="d-flex flex-wrap flex-justify-between">
+        <div className="mt-1 d-flex flex-wrap flex-justify-between">
             { oneCard('标题1', '描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1描述1', '标签1') }
             { oneCard('标题2', '描述2', '标签2') }
             { oneCard('标题3', '描述3', '标签3') }
