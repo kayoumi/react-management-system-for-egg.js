@@ -14,12 +14,12 @@ class InfiniteList extends React.Component {
         hasMore: true,
     }
     getData = (callback) => {
-        axios.get(fakeDataUrl).then(callback);
+      axios.get(fakeDataUrl).then(callback);
     }
     componentDidMount() {
         this.getData((res) => {
             this.setState({
-            data: res.data.results,
+              data: res.data.results,
             });
         });
     }
@@ -65,6 +65,7 @@ class InfiniteList extends React.Component {
               useWindow={false}
             >
               <List
+                locale={ {emptyText: '加载中...'} }
                 dataSource={this.state.data}
                 renderItem={this.renderListItem}
               >

@@ -11,7 +11,7 @@ const TabPane = Tabs.TabPane;
 const isSuperAdmin = 1 == 1 ? false : true;
 
 function callback(key) {
-  console.log(key);
+  // console.log(key);
 }
 
 const MainTab = () => (

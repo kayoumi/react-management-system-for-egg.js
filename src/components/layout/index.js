@@ -5,6 +5,8 @@ import HeaderLogo from '../headerLogo';
 import HeaderDropdown from '../headerDropdown';
 import SidebarUser from '../sidebarUser';
 import MainTab from '../mainTab';
+import Login from '../login';
+import SignUp from '../signUp';
 import './index.less';
 
 
@@ -44,7 +46,6 @@ const renderContent = () => {
         <Col
           span={14}
           offset={1}
-          className="min-height-1080"
         >
           <MainTab></MainTab>
         </Col>
@@ -58,8 +59,7 @@ const renderLogin = () => {
     <Content>
       <Row>
         <Col
-          span={4}
-          offset={3}
+          className="d-flex flex-justify-center"
         >
           <Login></Login>
         </Col>
@@ -73,8 +73,7 @@ const renderSignUp = () => {
     <Content>
       <Row>
         <Col
-          span={4}
-          offset={3}
+          className="d-flex flex-justify-center"
         >
           <SignUp></SignUp>
         </Col>
@@ -96,7 +95,7 @@ const Layouts =  (isLogin) => (
   <Layout>
     { renderHeader() }
     {/* { isLogin ? renderContent() : renderLogin() } */}
-    { renderLogin() }
+    { renderContent() }
     { renderFooter() }
   </Layout>
 );
