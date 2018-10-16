@@ -1,9 +1,8 @@
 import React from 'react';
 import { List, message, Avatar, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
+import request from '../../utils/request';
 import './index.less';
-
-const axios = require('axios');
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
@@ -14,7 +13,7 @@ class InfiniteList extends React.Component {
         hasMore: true,
     }
     getData = (callback) => {
-      axios.get(fakeDataUrl).then(callback);
+      request('get', fakeDataUrl).then(callback);
     }
     componentDidMount() {
         this.getData((res) => {
