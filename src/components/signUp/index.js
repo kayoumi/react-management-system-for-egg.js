@@ -1,5 +1,7 @@
 import React from 'react';
 import { Row, Col, Form, Input, Tooltip, Icon, Select, Button } from 'antd';
+import API from '../../utils/API';
+import { info } from '../../config';
 import './index.less';
 
 const FormItem = Form.Item;
@@ -16,6 +18,23 @@ class RegistrationForm extends React.Component {
       if (!err) {
         console.log('Received values of form: ', values);
       }
+      console.log(values);
+      const data = {
+        mobile: values.mobile,
+        password: values.password,
+        nickname: values.nickname,
+        code: values.code
+      };
+      const history = this.props.history;
+      history.push({ pathname: '/login' });
+      // API.signUp(data).then((res) => {
+      //   if(res.code == 0) {
+      //     info('注册成功，请登录！');
+      //     history.push({ pathname: '/login' });
+      //   } else {
+      //     info('登录失败！');
+      //   }
+      // });
     });
   }
 
@@ -27,7 +46,7 @@ class RegistrationForm extends React.Component {
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('Two passwords that you enter is inconsistent!');
+      callback('两次输入的密码不同，请重新输入!');
     } else {
       callback();
     }
@@ -77,7 +96,7 @@ class RegistrationForm extends React.Component {
             {...formItemLayout}
             label="手机号"
           >
-            {getFieldDecorator('phone', {
+            {getFieldDecorator('mobile', {
               rules: [{ required: true, message: '请输入您的手机号!' }],
             })(
               <Input />
@@ -132,7 +151,7 @@ class RegistrationForm extends React.Component {
             {...formItemLayout}
             label="邀请码"
           >
-            {getFieldDecorator('inviteCode', {
+            {getFieldDecorator('code', {
               rules: [{ required: false, message: '请输入邀请码!' }],
             })(
               <Input />

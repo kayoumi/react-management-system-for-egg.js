@@ -4,7 +4,7 @@ const host = 'http://localhost:7001/';
 
 const API = {};
 
-//用户注册 
+//用户注册
 //data: mobile, password, nickname, code
 API.signUp = (data) => {
     return request('post', host + 'api/user/signUp', data)
@@ -14,10 +14,19 @@ API.signUp = (data) => {
 API.verifyLogin = () => {
     const mobile = sessionStorage.getItem('mobile');
     const token = sessionStorage.getItem('token');
+    const data = {
+        mobile: mobile,
+        token: token
+    };
     if(mobile || token) {
-        return false;
+        return new Promise(function(resolve, reject) {
+            const res = {
+                code: 999
+            };
+            resolve(res);
+        });
     }
-    return request('post', host + 'api/user/verifyLogin');
+    return request('post', host + 'api/user/verifyLogin', data);
 }
 
 //账号密码登录

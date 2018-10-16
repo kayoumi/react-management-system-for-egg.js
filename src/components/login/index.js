@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import { Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd';
+import API from '../../utils/API';
+import { info } from '../../config';
 import './index.less';
 
 const FormItem = Form.Item;
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
+      const data = {
+        mobile: values.mobile,
+        password: values.password,
+      };
+      const history = this.props.history;
+      history.push({ pathname: '/' });
+      // API.login(data).then((res) => {
+      //   if(res.code == 0) {
+      //     info('登录成功！');
+      //     if(values.remember) {
+      //       localStorage.setItem('mobile', values.mobile);
+      //       res.token || localStorage.setItem('token', res.token);
+      //       res.adminToken || localStorage.setItem('adminToken', res.adminToken);
+      //       res.superAdminToken || localStorage.setItem('superAdminToken', res.superAdminToken);
+      //     }
+      //     history.push({ pathname: '/' });
+      //   } else {
+      //     info('登录失败！');
+      //   }
+      // });
     });
   }
 
@@ -23,7 +46,7 @@ class LoginForm extends React.Component {
       >
         <Form onSubmit={this.handleSubmit} className="max-width-300 mt-80">
           <FormItem>
-            {getFieldDecorator('userName', {
+            {getFieldDecorator('mobile', {
               rules: [{ required: true, message: '请输入您的手机号!' }],
             })(
               <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号" />
@@ -41,12 +64,12 @@ class LoginForm extends React.Component {
               valuePropName: 'checked',
               initialValue: true,
             })(
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>记住我</Checkbox>
             )}
             <Button type="primary" htmlType="submit" className="width-full">
               登录
             </Button>
-            Or <a href="">注册!</a>
+            Or <Link to="/signUp">注册!</Link>
           </FormItem>
         </Form>
       </Col>
