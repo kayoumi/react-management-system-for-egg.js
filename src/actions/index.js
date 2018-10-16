@@ -1,3 +1,5 @@
+import API from '../utils/API';
+
 export const VERIFY_LOGIN = 'VERIFY_LOGIN';
 
 export function verifyLogin(login_status, token) {

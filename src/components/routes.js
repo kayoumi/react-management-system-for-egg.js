@@ -6,12 +6,12 @@ import SignUp from './signUp';
 
 const parts = [{
   key: '主体',
-  path: '/main',
+  path: '/',
   component: Main
 }, {
-    key: '登录',
-    path: '/login',
-    component: Login
+  key: '登录',
+  path: '/login',
+  component: Login
 }, {
   key: '注册',
   path: '/signUp',
