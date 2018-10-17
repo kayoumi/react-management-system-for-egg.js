@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../actions';
 import { Link } from 'react-router-dom';
 import { Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd';
 import API from '../../utils/API';
@@ -24,6 +26,8 @@ class LoginForm extends Component {
       API.login(data).then((res) => {
         console.log(res);
         if(res.data.code == 0) {
+          this.props.login();
+          console.log(this.props);
           if(values.remember) {
             localStorage.setItem('mobile', values.mobile);
             console.log(res.data.token);
@@ -84,4 +88,8 @@ class LoginForm extends Component {
 
 const Login = Form.create()(LoginForm);
 
-export default Login;
+export default connect(
+  null,
+  { login }
+)(Login);
+

@@ -1,14 +1,22 @@
 import API from '../utils/API';
 
-export const VERIFY_LOGIN = 'VERIFY_LOGIN';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
-export function verifyLogin(login_status, token) {
+export function login() {
     return {
-        type: VERIFY_LOGIN,
-        login_status: login_status,
-        token: token
+        type: LOGIN
     }
 }
+
+export function logout() {
+    return {
+        type: LOGOUT
+    }
+}
+
+
+
 
 
 

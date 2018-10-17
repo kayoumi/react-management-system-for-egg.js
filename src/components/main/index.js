@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../actions';
 import { withRouter } from 'react-router-dom';
 import { Row, Col, Spin } from 'antd';
 import SidebarUser from '../sidebarUser';
@@ -14,39 +16,32 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    API.verifyLogin().then((res) => {
-      console.log('verify', res);
-      if(res.data.code == 0) {
-        info('登录成功！');
-        this.setState({
-          loading: false,
-          isLogin: true,
-        });
-      } else {
-        info('请重新登录！');
+    if(this.props.isLogin) {
+      info('登录成功！');
+      this.props.login();
+      this.setState({
+        loading: false,
+        isLogin: true,
+      });
+    } else {
+      API.verifyLogin().then((res) => {
+        console.log('verify', res);
+        if(res.data.code == 0) {
+          info('登录成功！');
+          this.props.login();
+          this.setState({
+            loading: false,
+            isLogin: true,
+          });
+        } else {
+          info('请重新登录！');
+          this.props.history.replace({ pathname: '/login' });
+        }
+      }).catch((err) => {
+        info('请登录！');
         this.props.history.replace({ pathname: '/login' });
-      }
-    }).catch((err) => {
-      info('请登录！');
-      this.props.history.replace({ pathname: '/login' });
-    });
-
-    // setTimeout(() => {
-    //   info('请重新登录！');
-    //   this.props.history.replace({ pathname: '/login' });
-    // }, 1000);
-
-    // setTimeout(() => {
-    //   info('登录成功！');
-    //   this.setState({
-    //     loading: false,
-    //     isLogin: true,
-    //   });
-    // }, 1000);
-
-    // API.verifyLogin().then((res) => {
-    //   console.log(res);
-    // });
+      });
+    }
   }
 
   renderLoading() {
@@ -89,6 +84,14 @@ class Main extends Component {
   }
 }
 
-export default Main;
+const mapStateToProps = state => ({
+  isLogin: state.status
+})
+
+export default connect(
+    mapStateToProps,
+    { login }
+)(Main);
+
 
 
