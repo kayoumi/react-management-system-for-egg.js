@@ -26,15 +26,19 @@ class RegistrationForm extends React.Component {
         code: values.code
       };
       const history = this.props.history;
-      history.push({ pathname: '/login' });
-      // API.signUp(data).then((res) => {
-      //   if(res.code == 0) {
-      //     info('注册成功，请登录！');
-      //     history.push({ pathname: '/login' });
-      //   } else {
-      //     info('登录失败！');
-      //   }
-      // });
+      console.log(data);
+      // history.push({ pathname: '/login' });
+      API.signUp(data).then((res) => {
+        console.log(res);
+        if(res.data.code == 0) {
+          info('注册成功，请登录！');
+          history.push({ pathname: '/login' });
+        } else {
+          info('注册失败！');
+        }
+      }).catch((err) => {
+        info('注册失败！');
+      });
     });
   }
 

@@ -14,18 +14,22 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    // API.verifyLogin().then((res) => {
-    //   if(res.code == 0) {
-    //     info('登录成功！');
-    //     this.setState({
-    //       loading: false,
-    //       isLogin: true,
-    //     });
-    //   } else {
-    //     info('请重新登录！');
-    //     this.props.history.replace({ pathname: '/login' });
-    //   }
-    // });
+    API.verifyLogin().then((res) => {
+      console.log('verify', res);
+      if(res.data.code == 0) {
+        info('登录成功！');
+        this.setState({
+          loading: false,
+          isLogin: true,
+        });
+      } else {
+        info('请重新登录！');
+        this.props.history.replace({ pathname: '/login' });
+      }
+    }).catch((err) => {
+      info('请登录！');
+      this.props.history.replace({ pathname: '/login' });
+    });
 
     // setTimeout(() => {
     //   info('请重新登录！');
@@ -39,6 +43,10 @@ class Main extends Component {
     //     isLogin: true,
     //   });
     // }, 1000);
+
+    // API.verifyLogin().then((res) => {
+    //   console.log(res);
+    // });
   }
 
   renderLoading() {

@@ -12,13 +12,14 @@ API.signUp = (data) => {
 
 //检测登录状态
 API.verifyLogin = () => {
-    const mobile = sessionStorage.getItem('mobile');
-    const token = sessionStorage.getItem('token');
+    const mobile = localStorage.getItem('mobile');
+    const token = localStorage.getItem('token');
     const data = {
         mobile: mobile,
         token: token
     };
-    if(mobile || token) {
+    //本地检测mobile和token是否为空
+    if(!mobile || !token) {
         return new Promise(function(resolve, reject) {
             const res = {
                 code: 999
@@ -26,13 +27,14 @@ API.verifyLogin = () => {
             resolve(res);
         });
     }
+    console.log(data);
     return request('post', host + 'api/user/verifyLogin', data);
 }
 
 //账号密码登录
 //data: mobile, password
 API.login = (data) => {
-    return request('post', host + 'api/user/signUp', data)
+    return request('post', host + 'api/user/login', data)
 }
 
 export default API;

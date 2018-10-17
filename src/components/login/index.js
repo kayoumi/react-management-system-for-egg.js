@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd';
 import API from '../../utils/API';
 import { info } from '../../config';
@@ -19,21 +19,25 @@ class LoginForm extends Component {
         password: values.password,
       };
       const history = this.props.history;
-      history.push({ pathname: '/' });
-      // API.login(data).then((res) => {
-      //   if(res.code == 0) {
-      //     info('登录成功！');
-      //     if(values.remember) {
-      //       localStorage.setItem('mobile', values.mobile);
-      //       res.token || localStorage.setItem('token', res.token);
-      //       res.adminToken || localStorage.setItem('adminToken', res.adminToken);
-      //       res.superAdminToken || localStorage.setItem('superAdminToken', res.superAdminToken);
-      //     }
-      //     history.push({ pathname: '/' });
-      //   } else {
-      //     info('登录失败！');
-      //   }
-      // });
+      console.log(data);
+      // history.push({ pathname: '/' });
+      API.login(data).then((res) => {
+        console.log(res);
+        if(res.data.code == 0) {
+          if(values.remember) {
+            localStorage.setItem('mobile', values.mobile);
+            console.log(res.data.token);
+            res.data.token && localStorage.setItem('token', res.data.token);
+            res.data.adminToken && localStorage.setItem('adminToken', res.data.adminToken);
+            res.data.superAdminToken && localStorage.setItem('superAdminToken', res.data.superAdminToken);
+          }
+          history.push({ pathname: '/' });
+        } else {
+          info('登录失败！');
+        }
+      }).catch((err) => {
+        info('登录失败！');
+      });
     });
   }
 
