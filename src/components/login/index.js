@@ -30,7 +30,8 @@ class LoginForm extends Component {
           console.log(this.props);
           if(values.remember) {
             localStorage.setItem('mobile', values.mobile);
-            console.log(res.data.token);
+            console.log(res.data.nickname);
+            res.data.nickname && localStorage.setItem('nickname', res.data.nickname);
             res.data.token && localStorage.setItem('token', res.data.token);
             res.data.adminToken && localStorage.setItem('adminToken', res.data.adminToken);
             res.data.superAdminToken && localStorage.setItem('superAdminToken', res.data.superAdminToken);

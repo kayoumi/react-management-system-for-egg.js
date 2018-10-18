@@ -16,6 +16,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.location);
     if(this.props.isLogin) {
       info('登录成功！');
       this.props.login();
@@ -27,24 +28,25 @@ class Main extends Component {
       if(!helper.verifyStorage()) {
         info('请重新登录！');
         this.props.history.replace({ pathname: '/login' });
-      }
-      API.verifyLogin().then((res) => {
-        console.log('verify', res);
-        if(res.data.code == 0) {
-          info('登录成功！');
-          this.props.login();
-          this.setState({
-            loading: false,
-            isLogin: true,
-          });
-        } else {
-          info('请重新登录！');
+      } else {
+        API.verifyLogin().then((res) => {
+          console.log('verify', res);
+          if(res.data.code == 0) {
+            info('登录成功！');
+            this.props.login();
+            this.setState({
+              loading: false,
+              isLogin: true,
+            });
+          } else {
+            info('请重新登录！');
+            this.props.history.replace({ pathname: '/login' });
+          }
+        }).catch((err) => {
+          info('请登录！');
           this.props.history.replace({ pathname: '/login' });
-        }
-      }).catch((err) => {
-        info('请登录！');
-        this.props.history.replace({ pathname: '/login' });
-      });
+        });
+      }
     }
   }
 

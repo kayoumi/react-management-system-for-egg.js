@@ -1,25 +1,44 @@
 import React from 'react';
-import { List, message, Avatar, Spin } from 'antd';
+import { List, Avatar, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import request from '../../utils/request';
+import API from '../../utils/API';
+import helper from '../../utils/helper';
+import { info } from '../../config';
 import './index.less';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
+const pageSize = 12;
 
 class InfiniteList extends React.Component {
     state = {
         data: [],
         loading: false,
         hasMore: true,
+        page: 0
     }
     getData = (callback) => {
-      request('get', fakeDataUrl).then(callback);
+      const page = this.state.page + 1;
+      this.setState({
+        page: page,
+      });
+      const author = localStorage.getItem('nickname') || '';
+      setTimeout(function() {
+        console.log(author);
+        if(author == '') {
+          API.getAllArticle({ page, pageSize }).then(callback);
+        } else {
+          console.log('按昵称搜索开始');
+          API.getAllArticle({ page, pageSize, author }).then(callback);
+        }
+      }, 1000);
+      // API.getAllArticle({ page, pageSize }).then(callback);
     }
     componentDidMount() {
         this.getData((res) => {
-            this.setState({
-              data: res.data.results,
-            });
+          console.log(res.data.data);
+          this.setState({
+            data: res.data.data,
+          });
         });
     }
     handleInfiniteOnLoad = () => {
@@ -27,29 +46,31 @@ class InfiniteList extends React.Component {
         this.setState({
           loading: true,
         });
-        if (data.length > 14) {
-          message.warning('Infinite List loaded all');
-          this.setState({
-            hasMore: false,
-            loading: false,
-          });
-          return;
-        }
         this.getData((res) => {
-          data = data.concat(res.data.results);
-          this.setState({
-            data,
-            loading: false,
-          });
+          console.log(res.data.data);
+          if(res.data.data.length == 0) {
+            info('文章已经全部加载完毕！');
+            this.setState({
+              hasMore: false,
+              loading: false,
+            });
+            return;
+          } else {
+            data = data.concat(res.data.data);
+            this.setState({
+              data,
+              loading: false,
+            });
+          }
         });
     }
     renderListItem = (item) => (
-        <List.Item key={item.id}>
+        <List.Item key={item._id}>
             <List.Item.Meta
-            title={<a href="https://ant.design">{item.name.last}</a>}
-            description={item.email}
+            title={<a href="https://ant.design">{item.title}</a>}
+            description={item.summary}
             />
-            <div>Content</div>
+            <div>{ helper.formatTime(item.createAt) }</div>
         </List.Item>
     )
 
@@ -61,7 +82,7 @@ class InfiniteList extends React.Component {
               pageStart={0}
               loadMore={this.handleInfiniteOnLoad}
               hasMore={!this.state.loading && this.state.hasMore}
-              useWindow={false}
+              useWindow={true}
             >
               <List
                 locale={ {emptyText: '加载中...'} }

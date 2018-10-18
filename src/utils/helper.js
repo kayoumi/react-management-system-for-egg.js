@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const helper = {};
 
 helper.getLocalStorage = () => {
@@ -19,13 +21,16 @@ helper.verifyStorage = () => {
     }
 };
 
-
 helper.makePromise = (code) => {
     return new Promise(function(resolve, reject) {
         const res = { code };
         resolve(res);
     });
 };
+
+helper.formatTime = (time) => {
+    return moment(time).format('YYYY-MM-DD hh:mm:ss');
+}
 
 export default helper;
 

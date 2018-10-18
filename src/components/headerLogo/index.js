@@ -1,17 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { info } from '../../config';
 import './index.less';
 import logoUrl from '../../assets/logo.svg';
 
 const clickInfo = () => {
-  info('点击LOGO！');
+  info('回到首页！');
 };
 
 const HeaderLogo = () => (
-  <a className="logo-box d-flex flex-items-center" href="#" title="logo" onClick={ clickInfo }>
+  <Link to="/" className="logo-box d-flex flex-items-center" title="logo" onClick={ clickInfo }>
     <img src={ logoUrl } className="logo-img" alt="logo"></img>
     <span className="logo-text">CandyBullet</span>
-  </a>
+  </Link>
 );
 
 export default HeaderLogo;

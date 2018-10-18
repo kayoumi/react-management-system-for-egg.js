@@ -4,7 +4,7 @@ import './index.less';
 
 const MainTabAll = () => (
     <div>
-        <InfiniteList></InfiniteList>
+        <InfiniteList type="personal"></InfiniteList>
     </div>
 );
 
