@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../../actions';
-import { withRouter } from 'react-router-dom';
+import helper from '../../utils/helper';
 import { Row, Col, Spin } from 'antd';
 import SidebarUser from '../sidebarUser';
 import MainTab from '../mainTab';
@@ -24,6 +24,10 @@ class Main extends Component {
         isLogin: true,
       });
     } else {
+      if(!helper.verifyStorage()) {
+        info('请重新登录！');
+        this.props.history.replace({ pathname: '/login' });
+      }
       API.verifyLogin().then((res) => {
         console.log('verify', res);
         if(res.data.code == 0) {

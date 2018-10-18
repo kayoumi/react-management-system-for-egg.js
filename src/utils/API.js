@@ -1,6 +1,8 @@
 import request from './request';
+import helper from './helper';
 
-const host = 'http://localhost:7001/';
+// const host = 'http://localhost:7001/';
+const host = 'http://192.168.1.142:7001/';
 
 const API = {};
 
@@ -12,21 +14,7 @@ API.signUp = (data) => {
 
 //检测登录状态
 API.verifyLogin = () => {
-    const mobile = localStorage.getItem('mobile');
-    const token = localStorage.getItem('token');
-    const data = {
-        mobile: mobile,
-        token: token
-    };
-    //本地检测mobile和token是否为空
-    if(!mobile || !token) {
-        return new Promise(function(resolve, reject) {
-            const res = {
-                code: 999
-            };
-            resolve(res);
-        });
-    }
+    const data = helper.getLocalStorage();
     console.log(data);
     return request('post', host + 'api/user/verifyLogin', data);
 }
@@ -36,6 +24,22 @@ API.verifyLogin = () => {
 API.login = (data) => {
     return request('post', host + 'api/user/login', data)
 }
+
+//提交文章
+//data: mobile, token, title, tag, summary, content
+API.postArticle = (data) => {
+    const { mobile, token } = helper.getLocalStorage();
+    data.mobile = mobile;
+    data.token = token;
+    console.log(data);
+    return request('post', host + 'api/article', data);
+}
+
+
+
+
+
+
 
 export default API;
 
