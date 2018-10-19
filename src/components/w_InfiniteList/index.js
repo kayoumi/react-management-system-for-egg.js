@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { List, Spin } from 'antd';
+import { List, Spin, Button } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import API from '../../utils/API';
 import helper from '../../utils/helper';
@@ -15,17 +15,16 @@ class InfiniteList extends React.Component {
         data: [],
         loading: false,
         hasMore: true,
-        needRefresh: false,
         page: 0
     }
-    getData = (callback) => {
-      const page = this.state.page + 1;
+    getData = (callback, pageStart) => {
+      const page = pageStart ? pageStart : this.state.page + 1;
       this.setState({
         page: page,
       });
       const author = localStorage.getItem('nickname') || '';
       setTimeout(function() {
-        console.log(author);
+        console.log('author:', author);
         if(author == '') {
           API.getAllArticle({ page, pageSize }).then(callback);
         } else {
@@ -33,54 +32,26 @@ class InfiniteList extends React.Component {
           API.getAllArticle({ page, pageSize, author }).then(callback);
         }
       }, 1000);
-      // API.getAllArticle({ page, pageSize }).then(callback);
     }
-    static getDerivedStateFromProps(props, state) {
-      console.log('getDerivedStateFromProps');
-      console.log('state', state.needRefresh);
-      console.log('props', props.needRefresh);
-      // if(this.props.needRefresh) {
-      //   this.setState({
-      //     hasMore: true,
-      //   });
-      //   this.props.articleNofresh();
-      //   this.forceUpdate();
-      // }
-
-      if(props.needRefresh !== state.needRefresh) {
-        console.log('开始return');
-        return {
-          needRefresh: props.needRefresh
-        };
-      } else {
-        return null;
+    componentDidUpdate(prevProps) {
+      if (this.props.needRefresh === true && this.props.needRefresh !== prevProps.needRefresh) {
+        this.props.articleNofresh();
+        this.getData((res) => {
+          this.setState({
+            data: res.data.data,
+            hasMore: true,
+            page: 1
+          });
+        }, 1);
       }
     }
-    // shouldComponentUpdate(props, state) {
-    //   if(props.needRefresh !== state.needRefresh) {
-    //     return true;
-    //   }
-    // }
     componentDidMount() {
-      this.setState({
-        needRefresh: this.props.needRefresh
-      });
       this.getData((res) => {
         console.log(res.data.data);
         this.setState({
           data: res.data.data,
         });
       });
-      // const haha = this.props.needRefresh;
-      // setInterval(function() {
-      //   console.log('needRefresh:', haha);
-      // }, 1000);
-      // if(this.props.needRefresh) {
-      //   this.setState({
-      //     hasMore: true,
-      //   });
-      //   this.props.articleNofresh();
-      // }
       console.log('渲染结束！！！');
     }
     handleInfiniteOnLoad = () => {

@@ -1,8 +1,8 @@
 import request from './request';
 import helper from './helper';
 
-const host = 'http://localhost:7001/';
-// const host = 'http://192.168.1.142:7001/';
+// const host = 'http://localhost:7001/';
+const host = 'http://192.168.1.142:7001/';
 
 const API = {};
 
