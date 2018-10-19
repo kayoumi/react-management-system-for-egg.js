@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Input, Button, Form, Row, Col, Icon } from 'antd';
 import API from '../../utils/API';
 import { info } from '../../config';
+import { articleRefresh } from '../../actions';
 import './index.less';
 
 const { TextArea } = Input;
@@ -16,6 +18,7 @@ class WriteForm extends Component {
 				if(res.data.code == 0) {
 					info('提交成功！');
 					this.handleReset();
+					this.props.articleRefresh();
 				} else {
 					info('提交失败！');
 				}
@@ -28,7 +31,9 @@ class WriteForm extends Component {
 	handleReset = () => {
 		this.props.form.resetFields();
 	}
-
+    componentDidMount() {
+		console.log('needRefresh:', this.props.needRefresh);
+	}
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
@@ -78,4 +83,12 @@ class WriteForm extends Component {
 
 const MainTabWrite = Form.create()(WriteForm);
 
-export default MainTabWrite;
+const mapStateToProps = state => ({
+	needRefresh: state.status.artRefresh
+});
+
+export default connect(
+    mapStateToProps,
+    { articleRefresh }
+)(MainTabWrite);
+

@@ -1,10 +1,11 @@
 import React from 'react';
-import { List, Avatar, Spin } from 'antd';
+import { connect } from 'react-redux';
+import { List, Spin } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
-import request from '../../utils/request';
 import API from '../../utils/API';
 import helper from '../../utils/helper';
 import { info } from '../../config';
+import { articleNofresh } from '../../actions';
 import './index.less';
 
 const pageSize = 12;
@@ -14,6 +15,7 @@ class InfiniteList extends React.Component {
         data: [],
         loading: false,
         hasMore: true,
+        needRefresh: false,
         page: 0
     }
     getData = (callback) => {
@@ -33,13 +35,53 @@ class InfiniteList extends React.Component {
       }, 1000);
       // API.getAllArticle({ page, pageSize }).then(callback);
     }
+    static getDerivedStateFromProps(props, state) {
+      console.log('getDerivedStateFromProps');
+      console.log('state', state.needRefresh);
+      console.log('props', props.needRefresh);
+      // if(this.props.needRefresh) {
+      //   this.setState({
+      //     hasMore: true,
+      //   });
+      //   this.props.articleNofresh();
+      //   this.forceUpdate();
+      // }
+
+      if(props.needRefresh !== state.needRefresh) {
+        console.log('开始return');
+        return {
+          needRefresh: props.needRefresh
+        };
+      } else {
+        return null;
+      }
+    }
+    // shouldComponentUpdate(props, state) {
+    //   if(props.needRefresh !== state.needRefresh) {
+    //     return true;
+    //   }
+    // }
     componentDidMount() {
-        this.getData((res) => {
-          console.log(res.data.data);
-          this.setState({
-            data: res.data.data,
-          });
+      this.setState({
+        needRefresh: this.props.needRefresh
+      });
+      this.getData((res) => {
+        console.log(res.data.data);
+        this.setState({
+          data: res.data.data,
         });
+      });
+      // const haha = this.props.needRefresh;
+      // setInterval(function() {
+      //   console.log('needRefresh:', haha);
+      // }, 1000);
+      // if(this.props.needRefresh) {
+      //   this.setState({
+      //     hasMore: true,
+      //   });
+      //   this.props.articleNofresh();
+      // }
+      console.log('渲染结束！！！');
     }
     handleInfiniteOnLoad = () => {
         let data = this.state.data;
@@ -101,4 +143,12 @@ class InfiniteList extends React.Component {
     }
 }
 
-export default InfiniteList;
+const mapStateToProps = state => ({
+  needRefresh: state.status.artRefresh
+});
+
+export default connect(
+  mapStateToProps,
+  { articleNofresh }
+)(InfiniteList);
+

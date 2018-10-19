@@ -26,7 +26,7 @@ const Header = ({ isLogin }) => (
 );
 
 const mapStateToProps = state => ({
-    isLogin: state.status
+    isLogin: state.status.isLogin
 })
 
 export default connect(
