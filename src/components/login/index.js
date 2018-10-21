@@ -47,6 +47,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    console.log(this.props.location);
     const { getFieldDecorator } = this.props.form;
     return (
     <Row>

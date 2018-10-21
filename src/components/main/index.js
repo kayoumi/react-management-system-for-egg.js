@@ -16,7 +16,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location);
+    console.log('location', this.props.location);
     if(this.props.isLogin) {
       info('登录成功！');
       this.props.login();
@@ -62,6 +62,36 @@ class Main extends Component {
     );
   }
 
+  getTab() {
+    return this.props.location.pathname.replace('/tab/', '');
+  }
+
+  setPathname = (tabNum) => {
+    let tab;
+    console.log(tabNum);
+    switch(tabNum) {
+      case '1':
+        tab = 'overview';
+        break;
+      case '2':
+        tab = 'write';
+        break;
+      case '3':
+        tab = 'personal';
+        break;
+      case '4':
+        tab = 'all';
+        break;
+      case '5':
+        tab = 'operation';
+        break;
+      default:
+        tab = 'overview';
+    }
+    const pathname = `/tab/${ tab }`;
+    this.props.history.replace({ pathname });
+  }
+
   renderMain() {
     return (
       <Row>
@@ -75,7 +105,7 @@ class Main extends Component {
           span={14}
           offset={1}
         >
-          <MainTab></MainTab>
+          <MainTab tab={ this.getTab() } setPathname = { this.setPathname }></MainTab>
         </Col>
       </Row>
     );
@@ -95,8 +125,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-    mapStateToProps,
-    { login }
+  mapStateToProps,
+  { login }
 )(Main);
 
 

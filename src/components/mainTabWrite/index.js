@@ -27,14 +27,12 @@ class WriteForm extends Component {
 			});
 		});
 	}
-    
-	handleReset = () => {
+
+	handleReset() {
 		this.props.form.resetFields();
 	}
-    componentDidMount() {
-		console.log('needRefresh:', this.props.needRefresh);
-	}
 	render() {
+		console.log('query', this.props);
 		const { getFieldDecorator } = this.props.form;
 		return (
 			<Form
@@ -83,12 +81,8 @@ class WriteForm extends Component {
 
 const MainTabWrite = Form.create()(WriteForm);
 
-const mapStateToProps = state => ({
-	needRefresh: state.status.artRefresh
-});
-
 export default connect(
-    mapStateToProps,
+    null,
     { articleRefresh }
 )(MainTabWrite);
 

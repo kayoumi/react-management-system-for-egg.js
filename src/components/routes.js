@@ -9,6 +9,10 @@ const parts = [{
   path: '/',
   component: Main
 }, {
+  key: '标签页',
+  path: '/tab/:id',
+  component: Main
+}, {
   key: '登录',
   path: '/login',
   component: Login
