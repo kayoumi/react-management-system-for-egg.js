@@ -13,7 +13,7 @@ const clickLogout = (logout) => () => {
 };
 
 const detailsMenu = (logout) => (
-  <ul>
+  <ul className="header-dropdown-pop">
     <li className="hdd-menu-item style-none hover-underline cursor-pointer f4">写文章</li>
     <li className="hdd-menu-item style-none hover-underline cursor-pointer f4">修改密码</li>
     <li className="hdd-menu-item style-none hover-underline cursor-pointer f4" onClick={ clickLogout(logout) }><Link to="/login">退出登录</Link></li>
