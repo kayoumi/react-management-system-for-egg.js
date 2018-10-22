@@ -1,5 +1,5 @@
 import React from 'react';
-import InfiniteList from '../w_InfiniteList';
+import InfiniteList from '../W_InfiniteList';
 import './index.less';
 
 const TabAll = () => (

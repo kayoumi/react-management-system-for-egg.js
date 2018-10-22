@@ -4,7 +4,7 @@ import reducer from './reducers';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import layout from './components/layout';
+import Layout from './components/Layout';
 import './index.less';
 import * as serviceWorker from './serviceWorker';
 
@@ -14,12 +14,11 @@ const App = () => (
     <Provider store={ store }>
         <Router>
             <Switch>
-                <Route path='/' component={ layout } />
+                <Route path='/' component={ Layout } />
             </Switch>
         </Router>
     </Provider>
 )
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
