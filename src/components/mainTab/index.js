@@ -1,10 +1,10 @@
 import React from 'react';
 import { Tabs } from 'antd';
-import MainTabOverview from '../mainTabOverview';
-import MainTabWrite from '../mainTabWrite';
-import MainTabPersonal from '../mainTabPersonal';
-import MainTabAll from '../mainTabAll';
-import MainTabOperation from '../mainTabOperation';
+import TabOverview from './TabOverview';
+import TabWrite from './TabWrite';
+import TabPersonal from './TabPersonal';
+import TabAll from './TabAll';
+import TabOperation from './TabOperation';
 import './index.less';
 
 const TabPane = Tabs.TabPane;
@@ -30,22 +30,19 @@ const initTab = (tab) => {
 const MainTab = ({ tab, setPathname }) => (
     <Tabs defaultActiveKey={ initTab(tab) } onChange={ setPathname }>
         <TabPane tab="动态" key="1">
-            <MainTabOverview></MainTabOverview>
+            <TabOverview></TabOverview>
         </TabPane>
         <TabPane tab="写文章" key="2">
-            <MainTabWrite></MainTabWrite>
+            <TabWrite></TabWrite>
         </TabPane>
         <TabPane tab="个人文章" key="3">
-            <MainTabPersonal></MainTabPersonal>
+            <TabPersonal></TabPersonal>
         </TabPane>
         <TabPane tab="全部文章" key="4">
-            <MainTabAll></MainTabAll>
+            <TabAll></TabAll>
         </TabPane>
         <TabPane tab="用户操作" disabled={ isSuperAdmin } key="5">
-            <MainTabOperation></MainTabOperation>
-        </TabPane>
-        <TabPane tab="haha" disabled={ isSuperAdmin } key="6">
-            <p>{ tab }</p>
+            <TabOperation></TabOperation>
         </TabPane>
     </Tabs>
 );

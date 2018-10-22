@@ -2,10 +2,10 @@ import React from 'react';
 import InfiniteList from '../w_InfiniteList';
 import './index.less';
 
-const MainTabPersonal = () => (
+const TabAll = () => (
     <div>
-        <InfiniteList type="personal"></InfiniteList>
+        <InfiniteList type="all"></InfiniteList>
     </div>
 );
 
-export default MainTabPersonal;
+export default TabAll;

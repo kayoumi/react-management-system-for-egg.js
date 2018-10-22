@@ -17,7 +17,7 @@ const oneCard = (title, description, tag) => (
     </Card>
 );
 
-const MainTabOverview = () => (
+const TabOverview = () => (
     <div>
         <h2>个人最新文章</h2>
         <div className="mt-1 d-flex flex-wrap flex-justify-between">
@@ -31,4 +31,4 @@ const MainTabOverview = () => (
     </div>
 );
 
-export default MainTabOverview;
+export default TabOverview;
