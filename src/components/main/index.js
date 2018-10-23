@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions';
+import { verifyLogin } from '../../actions';
 import helper from '../../utils/helper';
 import { Row, Col, Spin } from 'antd';
 import SidebarUser from '../SidebarUser';
@@ -15,11 +15,25 @@ class Main extends Component {
     isLogin: false,
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.loginText !== prevProps.loginText) {
+      info(this.props.loginText);
+    }
+    if(this.props.isLogin !== prevProps.isLogin) {
+      if(this.props.isLogin) {
+        this.setState({
+          loading: false,
+          isLogin: true,
+        });
+      } else {
+        this.props.history.push({ pathname: '/login' });
+      }
+    }
+  }
+
   componentDidMount() {
     console.log('location', this.props.location);
     if(this.props.isLogin) {
-      info('登录成功！');
-      this.props.login();
       this.setState({
         loading: false,
         isLogin: true,
@@ -29,23 +43,24 @@ class Main extends Component {
         info('请重新登录！');
         this.props.history.replace({ pathname: '/login' });
       } else {
-        API.verifyLogin().then((res) => {
-          console.log('verify', res);
-          if(res.data.code == 0) {
-            info('登录成功！');
-            this.props.login();
-            this.setState({
-              loading: false,
-              isLogin: true,
-            });
-          } else {
-            info('请重新登录！');
-            this.props.history.replace({ pathname: '/login' });
-          }
-        }).catch((err) => {
-          info('请登录！');
-          this.props.history.replace({ pathname: '/login' });
-        });
+        this.props.verifyLogin();
+        // API.verifyLogin().then((res) => {
+        //   console.log('verify', res);
+        //   if(res.data.code == 0) {
+        //     info('登录成功！');
+        //     this.props.login();
+        //     this.setState({
+        //       loading: false,
+        //       isLogin: true,
+        //     });
+        //   } else {
+        //     info('请重新登录！');
+        //     this.props.history.replace({ pathname: '/login' });
+        //   }
+        // }).catch((err) => {
+        //   info('请登录！');
+        //   this.props.history.replace({ pathname: '/login' });
+        // });
       }
     }
   }
@@ -121,12 +136,13 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLogin: state.status.isLogin
+  isLogin: state.login.isLogin,
+  loginText: state.login.text
 });
 
 export default connect(
   mapStateToProps,
-  { login }
+  { verifyLogin }
 )(Main);
 
 

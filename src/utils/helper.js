@@ -32,6 +32,12 @@ helper.formatTime = (time) => {
     return moment(time).format('YYYY-MM-DD hh:mm:ss');
 }
 
+helper.setLocalStorage = (data, propertyArr) => {
+    propertyArr.map(item => {
+        data[item] && localStorage.setItem(item, data[item]);
+    });
+}
+
 export default helper;
 
 

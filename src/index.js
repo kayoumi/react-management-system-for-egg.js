@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reducer from './reducers';
-import { createStore } from 'redux';
+import configStore from './config/configStore';
 import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Layout from './components/Layout';
 import './index.less';
 import * as serviceWorker from './serviceWorker';
+import { verifyLogin } from './actions'
 
-const store = createStore(reducer);
+const store = configStore();
+// store.dispatch(verifyLogin());
 
 const App = () => (
     <Provider store={ store }>

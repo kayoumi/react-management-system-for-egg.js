@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'antd';
+import { logout } from '../../actions';
 import HeaderLogo from './HeaderLogo';
 import HeaderDropdown from './HeaderDropdown';
 import HeaderLogin from './HeaderLogin';
@@ -19,16 +20,16 @@ const Header = ({ isLogin }) => (
 			span={3}
 			offset={16}
 		>
-			{ isLogin ? <HeaderDropdown></HeaderDropdown> : <HeaderLogin></HeaderLogin> }
+			{ isLogin ? <HeaderDropdown logout={ logout }></HeaderDropdown> : <HeaderLogin></HeaderLogin> }
 		</Col>
   </Row>
 );
 
 const mapStateToProps = state => ({
-    isLogin: state.status.isLogin
+    isLogin: state.login.isLogin
 })
 
 export default connect(
     mapStateToProps,
-    null
+    { logout }
 )(Header);

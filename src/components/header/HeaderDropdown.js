@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Popover, Avatar, Badge } from 'antd';
-import { logout } from '../../actions';
 import headUrl from '../../assets/head_default.jpg';
 
 const userMessageCount = 1;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../../actions';
+import { loginWithPSW } from '../../actions';
 import { Link } from 'react-router-dom';
 import { Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd';
 import API from '../../utils/API';
@@ -20,30 +20,41 @@ class LoginForm extends Component {
         mobile: values.mobile,
         password: values.password,
       };
-      const history = this.props.history;
+      // const history = this.props.history;
       console.log(data);
       // history.push({ pathname: '/' });
-      API.login(data).then((res) => {
-        console.log(res);
-        if(res.data.code == 0) {
-          this.props.login();
-          console.log(this.props);
-          if(values.remember) {
-            localStorage.setItem('mobile', values.mobile);
-            console.log(res.data.nickname);
-            res.data.nickname && localStorage.setItem('nickname', res.data.nickname);
-            res.data.token && localStorage.setItem('token', res.data.token);
-            res.data.adminToken && localStorage.setItem('adminToken', res.data.adminToken);
-            res.data.superAdminToken && localStorage.setItem('superAdminToken', res.data.superAdminToken);
-          }
-          history.push({ pathname: '/' });
-        } else {
-          info('登录失败！');
-        }
-      }).catch((err) => {
-        info('登录失败！');
-      });
+      this.props.loginWithPSW(data);
+      // API.login(data).then((res) => {
+      //   console.log(res);
+      //   if(res.data.code == 0) {
+      //     this.props.login();
+      //     console.log(this.props);
+      //     if(values.remember) {
+      //       localStorage.setItem('mobile', values.mobile);
+      //       console.log(res.data.nickname);
+      //       res.data.nickname && localStorage.setItem('nickname', res.data.nickname);
+      //       res.data.token && localStorage.setItem('token', res.data.token);
+      //       res.data.adminToken && localStorage.setItem('adminToken', res.data.adminToken);
+      //       res.data.superAdminToken && localStorage.setItem('superAdminToken', res.data.superAdminToken);
+      //     }
+      //     history.push({ pathname: '/' });
+      //   } else {
+      //     info('登录失败！');
+      //   }
+      // }).catch((err) => {
+      //   info('登录失败！');
+      // });
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.loginText !== '登陆中...') {
+      info(this.props.loginText);
+    }
+    // info(this.props.loginText);
+    if(this.props.isLogin !== prevProps.isLogin && this.props.isLogin) {
+      this.props.history.push({ pathname: '/' });
+    }
   }
 
   render() {
@@ -90,8 +101,13 @@ class LoginForm extends Component {
 
 const Login = Form.create()(LoginForm);
 
+const mapStateToProps = state => ({
+  isLogin: state.login.isLogin,
+  loginText: state.login.text
+});
+
 export default connect(
-  null,
-  { login }
+  mapStateToProps,
+  { loginWithPSW }
 )(Login);
 

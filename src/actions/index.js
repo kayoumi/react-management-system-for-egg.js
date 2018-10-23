@@ -1,6 +1,9 @@
 import API from '../utils/API';
+import helper from '../utils/helper';
 
-export const LOGIN = 'LOGIN';
+// login
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';
 
 export const ARTICLE_REFRESH = 'ARTICLE_REFRESH';
@@ -9,15 +12,49 @@ export const ARTICLE_NOFRESH = 'ARTICLE_NOFRESH';
 export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 export const POST_ARTICLE = 'POST_ARTICLE';
 
-export function login() {
+export function loginSuccess(data) {
     return {
-        type: LOGIN
+        type: LOGIN_SUCCESS,
+        text: '登录成功！',
+        data: data
     }
+}
+
+export function loginError(err) {
+    return {
+        type: LOGIN_ERROR,
+        text: '登录失败,' + err
+    }
+}
+
+export function verifyLogin() {
+    return dispatch => API.verifyLogin()
+    .then(res => {
+        if(res.data.code == 0) {
+            return dispatch(loginSuccess());
+        } else {
+            return dispatch(loginError(res.data.error));
+        }
+    }).catch(() => dispatch(loginError('请稍后重试！')));
+}
+
+export function loginWithPSW(data) {
+    return dispatch => API.login(data)
+    .then(res => {
+        let storageArr = ['mobile', 'nickname', 'token', 'adminToken', 'superAdminToken'];
+        if(res.data.code == 0) {
+            helper.setLocalStorage(res.data, storageArr);
+            return dispatch(loginSuccess(res.data));
+        } else {
+            return dispatch(loginError(res.data.error));
+        }
+    }).catch(() => dispatch(loginError('请稍后重试！')));
 }
 
 export function logout() {
     return {
-        type: LOGOUT
+        type: LOGOUT,
+        text: '退出登录！'
     }
 }
 
@@ -40,17 +77,7 @@ export function receiveError() {
     }
 }
 
-export function postArticle(data) {
-    // return dispatch => API.postArticle(data)
-    // .then(response => response.json())
-    // .then(json => {
-    // if(!json.title) {
-    //     return dispatch(receiveError())
-    // }
-    // return dispatch(receivePosts(json))
-    // })
-    // .catch(() => dispatch(receiveError()))
-}
+
 
 
 
