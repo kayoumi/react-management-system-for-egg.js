@@ -40,11 +40,9 @@ class Main extends Component {
       });
     } else {
       if(!helper.verifyStorage()) {
-        console.log('哈哈重新登录哦哦哦哦哦');
         info('请重新登录！');
         this.props.history.replace({ pathname: '/login' });
       } else {
-        console.log('哈哈重新登录额额额额额额额');
         this.props.verifyLogin();
         // API.verifyLogin().then((res) => {
         //   console.log('verify', res);
