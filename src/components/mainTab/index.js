@@ -28,7 +28,7 @@ const initTab = (tab) => {
 }
 
 const MainTab = ({ tab, setPathname }) => (
-    <Tabs defaultActiveKey={ initTab(tab) } onChange={ setPathname }>
+    <Tabs activeKey={ initTab(tab) }  onChange={ setPathname }>
         <TabPane tab="动态" key="1">
             <TabOverview></TabOverview>
         </TabPane>

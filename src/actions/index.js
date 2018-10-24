@@ -41,8 +41,9 @@ export function verifyLogin() {
 export function loginWithPSW(data) {
     return dispatch => API.login(data)
     .then(res => {
-        let storageArr = ['mobile', 'nickname', 'token', 'adminToken', 'superAdminToken'];
+        let storageArr = ['nickname', 'token', 'adminToken', 'superAdminToken'];
         if(res.data.code == 0) {
+            helper.setLocalStorage(data, ['mobile']);
             helper.setLocalStorage(res.data, storageArr);
             return dispatch(loginSuccess(res.data));
         } else {
