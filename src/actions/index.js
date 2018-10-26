@@ -26,6 +26,7 @@ export const POST_ARTICLE = 'POST_ARTICLE';
 
 // login=====================================================
 export function loginSuccess(data) {
+    info('登录成功！');
     return {
         type: LOGIN_SUCCESS,
         text: '登录成功！',
@@ -34,6 +35,7 @@ export function loginSuccess(data) {
 }
 
 export function loginError(err) {
+    info('登录失败，' + err);
     return {
         type: LOGIN_ERROR,
         text: '登录失败,' + err
@@ -41,6 +43,7 @@ export function loginError(err) {
 }
 
 export function logout() {
+    info('登录失败，请稍后再试！');
     return {
         type: LOGOUT,
         text: '退出登录！'
@@ -53,9 +56,9 @@ export function verifyLogin() {
         if(res.data.code == 0) {
             return dispatch(loginSuccess());
         } else {
-            return dispatch(loginError(res.data.error));
+            return dispatch(loginError(res.data.msg));
         }
-    }).catch(() => dispatch(loginError('请稍后重试！')));
+    }).catch((res) => dispatch(loginError(res.error)));
 }
 
 export function loginWithPSW(data) {
@@ -67,11 +70,9 @@ export function loginWithPSW(data) {
             helper.setLocalStorage(res.data, storageArr);
             return dispatch(loginSuccess(res.data));
         } else {
-            info('登录失败，' + res.data.error);
-            return dispatch(loginError(res.data.error));
+            return dispatch(loginError(res.data.msg));
         }
     }).catch(() => {
-        info('登录失败!');
         return dispatch(loginError('请稍后重试！'));
     });
 }
