@@ -1,5 +1,5 @@
 import React from 'react';
-import InfiniteList from '../W_InfiniteList';
+import InfiniteList from '../widget-Infinite-list';
 import './index.less';
 
 const TabPersonal = () => (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
-import MyHeader from '../Header';
-import Routes from '../Routes';
+import MyHeader from '../header';
+import Routes from '../routes';
 import './index.less';
 
 const { Header, Content, Footer } = Layout;

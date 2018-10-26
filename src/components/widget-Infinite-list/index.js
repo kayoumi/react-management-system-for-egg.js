@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, Spin, Button } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
-import API from '../../utils/API';
+import API from '../../utils/api';
 import helper from '../../utils/helper';
 import { info } from '../../config';
 import { articleNofresh } from '../../actions';

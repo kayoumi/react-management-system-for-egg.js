@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, Form, Row, Col, Icon } from 'antd';
-import API from '../../utils/API';
+import API from '../../utils/api';
 import { info } from '../../config';
 import { articleRefresh } from '../../actions';
 import './index.less';

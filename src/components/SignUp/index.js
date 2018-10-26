@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Form, Input, Tooltip, Icon, Select, Button } from 'antd';
-import API from '../../utils/API';
+import API from '../../utils/api';
 import { info } from '../../config';
 import './index.less';
 

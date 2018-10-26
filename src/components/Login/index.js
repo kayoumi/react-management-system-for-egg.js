@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { loginWithPSW } from '../../actions';
 import { Link } from 'react-router-dom';
 import { Row, Col, Form, Icon, Input, Button, Checkbox } from 'antd';
-import API from '../../utils/API';
+import API from '../../utils/api';
 import { info } from '../../config';
 import './index.less';
 
@@ -48,7 +48,8 @@ class LoginForm extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.loginText !== '登陆中...') {
+    if(this.props.loginText !== prevProps.loginText) {
+      console.log('判断登录中。。。。。');
       info(this.props.loginText);
     }
     // info(this.props.loginText);

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { verifyLogin } from '../../actions';
 import helper from '../../utils/helper';
 import { Row, Col, Spin } from 'antd';
-import SidebarUser from '../SidebarUser';
-import MainTab from '../MainTab';
-import API from '../../utils/API';
+import SidebarUser from '../sidebar-user';
+import MainTab from '../main-tab';
+import API from '../../utils/api';
 import { info } from '../../config';
 import './index.less';
 

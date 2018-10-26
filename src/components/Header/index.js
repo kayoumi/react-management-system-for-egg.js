@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'antd';
 import { logout } from '../../actions';
-import HeaderLogo from './HeaderLogo';
-import HeaderDropdown from './HeaderDropdown';
-import HeaderLogin from './HeaderLogin';
+import HeaderLogo from './logo';
+import HeaderDropdown from './dropdown';
+import HeaderLogin from './login';
 import './index.less';
 
 const Header = ({ isLogin }) => (

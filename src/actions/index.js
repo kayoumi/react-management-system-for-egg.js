@@ -1,5 +1,6 @@
-import API from '../utils/API';
+import API from '../utils/api';
 import helper from '../utils/helper';
+import { info } from '../config';
 
 // login
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -66,9 +67,15 @@ export function loginWithPSW(data) {
             helper.setLocalStorage(res.data, storageArr);
             return dispatch(loginSuccess(res.data));
         } else {
+            info('登录失败，' + res.data.error);
+            console.log('action的登录！');
             return dispatch(loginError(res.data.error));
         }
-    }).catch(() => dispatch(loginError('请稍后重试！')));
+    }).catch(() => {
+        info('登录失败');
+        console.log('action的登录错误！');
+        return dispatch(loginError('请稍后重试！'));
+    });
 }
 
 // article=====================================================

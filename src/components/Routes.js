@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Main from './Main';
-import Login from './Login';
-import SignUp from './SignUp';
+import Main from './main';
+import Login from './login';
+import SignUp from './signup';
 
 const parts = [{
   key: '主体',

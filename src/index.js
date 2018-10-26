@@ -4,7 +4,7 @@ import reducer from './reducers';
 import configStore from './config/configStore';
 import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import Layout from './components/Layout';
+import Layout from './components/layout';
 import './index.less';
 import * as serviceWorker from './serviceWorker';
 import { verifyLogin } from './actions'

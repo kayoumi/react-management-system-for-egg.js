@@ -1,10 +1,10 @@
 import React from 'react';
 import { Tabs } from 'antd';
-import TabOverview from './TabOverview';
-import TabWrite from './TabWrite';
-import TabPersonal from './TabPersonal';
-import TabAll from './TabAll';
-import TabOperation from './TabOperation';
+import TabOverview from './overview';
+import TabWrite from './write';
+import TabPersonal from './personal';
+import TabAll from './all';
+import TabOperation from './operation';
 import './index.less';
 
 const TabPane = Tabs.TabPane;
