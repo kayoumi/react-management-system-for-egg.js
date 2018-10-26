@@ -23,28 +23,52 @@ const article = (state = defaultState, action) => {
     switch(action.type) {
 
         case ARTICLE_GET_ING:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_GET_SUCCESS:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_GET_ERROR:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_POST_ING:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_POST_SUCCESS:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_POST_ERROR:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_NEED_REFRESH:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         case ARTICLE_HAS_REFREASHED:
-
+            return {
+                ...state,
+                text: action.text
+            };
 
         default:
             return state;
