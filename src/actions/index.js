@@ -68,12 +68,10 @@ export function loginWithPSW(data) {
             return dispatch(loginSuccess(res.data));
         } else {
             info('登录失败，' + res.data.error);
-            console.log('action的登录！');
             return dispatch(loginError(res.data.error));
         }
     }).catch(() => {
-        info('登录失败');
-        console.log('action的登录错误！');
+        info('登录失败!');
         return dispatch(loginError('请稍后重试！'));
     });
 }

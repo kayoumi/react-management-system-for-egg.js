@@ -48,10 +48,6 @@ class LoginForm extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.loginText !== prevProps.loginText) {
-      console.log('判断登录中。。。。。');
-      info(this.props.loginText);
-    }
     // info(this.props.loginText);
     if(this.props.isLogin !== prevProps.isLogin && this.props.isLogin) {
       this.props.history.push({ pathname: '/' });
