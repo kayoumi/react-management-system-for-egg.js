@@ -1,48 +1,45 @@
 import {
     LOGIN_SUCCESS,
     LOGIN_ERROR,
+    LOGIN_FILL_DATA,
     LOGOUT
 } from '../actions';
 
 const defaultState = {
     isLogin: false,
-    text: '登陆中...',
+    loginErr: false,
     mobile: '',
     nickname: '',
 }
 
 const login = (state = defaultState, action) => {
     switch(action.type) {
-
+            
         case LOGIN_SUCCESS:
-            if(action.data == null) {
-                return {
-                    ...state,
-                    isLogin: true,
-                    text: action.text
-                };
-            } else {
-                return {
-                    ...state,
-                    isLogin: true,
-                    text: action.text,
-                    mobile: action.data.mobile,
-                    nickname: action.data.nickname
-                };
-            }
+            return {
+                ...state,
+                isLogin: true,
+                loginErr: false
+            };
 
         case LOGIN_ERROR:
             return {
                 ...state,
                 isLogin: false,
-                text: action.text
+                loginErr: true
             };
 
         case LOGOUT:
             return {
                 ...state,
-                isLogin: false,
-                text: action.text
+                isLogin: false
+            };
+
+        case LOGIN_FILL_DATA:
+            return {
+                ...state,
+                mobile: action.data.mobile,
+                nickname: action.data.nickname
             };
 
         default:

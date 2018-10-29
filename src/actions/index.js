@@ -1,3 +1,4 @@
+import NProgress from 'nprogress';
 import API from '../utils/api';
 import helper from '../utils/helper';
 import { info } from '../config';
@@ -5,6 +6,7 @@ import { info } from '../config';
 // login
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGIN_FILL_DATA = 'LOGIN_FILL_DATA';
 export const LOGOUT = 'LOGOUT';
 
 // article
@@ -25,11 +27,16 @@ export const RECEIVE_ERROR = 'RECEIVE_ERROR';
 export const POST_ARTICLE = 'POST_ARTICLE';
 
 // login=====================================================
-export function loginSuccess(data) {
+export function loginSuccess() {
     info('登录成功！');
     return {
-        type: LOGIN_SUCCESS,
-        text: '登录成功！',
+        type: LOGIN_SUCCESS
+    }
+}
+
+export function loginFillData(data) {
+    return {
+        type: LOGIN_FILL_DATA,
         data: data
     }
 }
@@ -37,16 +44,14 @@ export function loginSuccess(data) {
 export function loginError(err) {
     info('登录失败，' + err);
     return {
-        type: LOGIN_ERROR,
-        text: '登录失败,' + err
+        type: LOGIN_ERROR
     }
 }
 
 export function logout() {
-    info('登录失败，请稍后再试！');
+    info('退出登录成功！');
     return {
-        type: LOGOUT,
-        text: '退出登录！'
+        type: LOGOUT
     }
 }
 
@@ -54,71 +59,73 @@ export function verifyLogin() {
     return dispatch => API.verifyLogin()
     .then(res => {
         if(res.data.code == 0) {
-            return dispatch(loginSuccess());
+            dispatch(loginSuccess());
         } else {
-            return dispatch(loginError(res.data.msg));
+            dispatch(loginError(res.data.msg));
         }
     }).catch((res) => dispatch(loginError(res.error)));
 }
 
 export function loginWithPSW(data) {
+    NProgress.start();
     return dispatch => API.login(data)
     .then(res => {
+        NProgress.done();
         let storageArr = ['nickname', 'token', 'adminToken', 'superAdminToken'];
         if(res.data.code == 0) {
             helper.setLocalStorage(data, ['mobile']);
             helper.setLocalStorage(res.data, storageArr);
-            return dispatch(loginSuccess(res.data));
+            dispatch(loginSuccess());
+            dispatch(loginFillData(res.data));
         } else {
-            return dispatch(loginError(res.data.msg));
+            dispatch(loginError(res.data.msg));
         }
-    }).catch(() => {
-        return dispatch(loginError('请稍后重试！'));
-    });
+    }).catch(() => dispatch(loginError('请稍后重试！')));
 }
 
 // article=====================================================
 export function articleGetIng() {
+    info('文章获取中');
     return {
-        type: ARTICLE_GET_ING,
-        text: '文章获取中...'
+        type: ARTICLE_GET_ING
     }
 }
 
-export function articleGetSuccess(data) {
+export function articleGetSuccess(data, page) {
+    info('文章获取成功！');
     return {
         type: ARTICLE_GET_SUCCESS,
-        text: '文章获取成功！',
+        page: page,
         data: data
     }
 }
 
 export function articleGetError(err) {
+    info('文章获取失败,' + err);
     return {
-        type: ARTICLE_GET_ERROR,
-        text: '文章获取失败！' + err
+        type: ARTICLE_GET_ERROR
     }
 }
 
 export function articlePostIng() {
+    info('文章提交中...');
     return {
-        type: ARTICLE_POST_ING,
-        text: '文章提交中...'
+        type: ARTICLE_POST_ING
     }
 }
 
 export function articlePostSuccess(data) {
+    info('文章提交成功！');
     return {
         type: ARTICLE_POST_SUCCESS,
-        text: '文章提交成功！',
         data: data
     }
 }
 
 export function articlePostError(err) {
+    info('文章提交失败！' + err);
     return {
-        type: ARTICLE_POST_ERROR,
-        text: '文章提交失败！' + err
+        type: ARTICLE_POST_ERROR
     }
 }
 
@@ -129,9 +136,9 @@ export function articleNeedRefresh() {
 }
 
 export function articleHasRefreshed() {
+    info('刷新成功！');
     return {
-        type: ARTICLE_HAS_REFREASHED,
-        text: '刷新成功！'
+        type: ARTICLE_HAS_REFREASHED
     }
 }
 

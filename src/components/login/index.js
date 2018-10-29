@@ -20,35 +20,12 @@ class LoginForm extends Component {
         mobile: values.mobile,
         password: values.password,
       };
-      // const history = this.props.history;
       console.log(data);
-      // history.push({ pathname: '/' });
       this.props.loginWithPSW(data);
-      // API.login(data).then((res) => {
-      //   console.log(res);
-      //   if(res.data.code == 0) {
-      //     this.props.login();
-      //     console.log(this.props);
-      //     if(values.remember) {
-      //       localStorage.setItem('mobile', values.mobile);
-      //       console.log(res.data.nickname);
-      //       res.data.nickname && localStorage.setItem('nickname', res.data.nickname);
-      //       res.data.token && localStorage.setItem('token', res.data.token);
-      //       res.data.adminToken && localStorage.setItem('adminToken', res.data.adminToken);
-      //       res.data.superAdminToken && localStorage.setItem('superAdminToken', res.data.superAdminToken);
-      //     }
-      //     history.push({ pathname: '/' });
-      //   } else {
-      //     info('登录失败！');
-      //   }
-      // }).catch((err) => {
-      //   info('登录失败！');
-      // });
     });
   }
 
   componentDidUpdate(prevProps) {
-    // info(this.props.loginText);
     if(this.props.isLogin !== prevProps.isLogin && this.props.isLogin) {
       this.props.history.push({ pathname: '/' });
     }
@@ -99,8 +76,7 @@ class LoginForm extends Component {
 const Login = Form.create()(LoginForm);
 
 const mapStateToProps = state => ({
-  isLogin: state.login.isLogin,
-  loginText: state.login.text
+  isLogin: state.login.isLogin
 });
 
 export default connect(

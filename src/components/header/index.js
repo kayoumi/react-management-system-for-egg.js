@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import { logout } from '../../actions';
 import HeaderLogo from './logo';
 import HeaderDropdown from './dropdown';
 import HeaderLogin from './login';
 import './index.less';
 
-const Header = ({ isLogin }) => (
+const Header = ({ isLogin, logout }) => (
   <Row className="header d-flex flex-items-center">
 		<Col
 			span={4}
