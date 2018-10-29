@@ -2,6 +2,7 @@ import {
     ARTICLE_GET_ING,
     ARTICLE_GET_SUCCESS,
     ARTICLE_GET_ERROR,
+    ARTICLE_GET_DATA,
     ARTICLE_POST_ING,
     ARTICLE_POST_SUCCESS,
     ARTICLE_POST_ERROR,
@@ -11,9 +12,12 @@ import {
 
 const defaultState = {
     isGetted: false,
+    getErr: false,
     isPosted: false,
+    postErr: false,
     page: 0,
-    data: []
+    data: [],
+    needRefresh: false
 }
 
 const article = (state = defaultState, action) => {
@@ -27,37 +31,58 @@ const article = (state = defaultState, action) => {
 
         case ARTICLE_GET_SUCCESS:
             return {
-                ...state
+                ...state,
+                isGetted: true,
+                getErr: false
             };
 
         case ARTICLE_GET_ERROR:
             return {
-                ...state
+                ...state,
+                isGetted: false,
+                getErr: true
+            };
+
+        case ARTICLE_GET_DATA:
+            return {
+                ...state,
+                page: action.page,
+                data: [
+                    ...state.data,
+                    ...action.data
+                ]
             };
 
         case ARTICLE_POST_ING:
             return {
-                ...state
+                ...state,
+                isPosted: false
             };
 
         case ARTICLE_POST_SUCCESS:
             return {
-                ...state
+                ...state,
+                isPosted: true,
+                postErr: false
             };
 
         case ARTICLE_POST_ERROR:
             return {
-                ...state
+                ...state,
+                isPosted: false,
+                postErr: true
             };
 
         case ARTICLE_NEED_REFRESH:
             return {
-                ...state
+                ...state,
+                needRefresh: true
             };
 
         case ARTICLE_HAS_REFREASHED:
             return {
-                ...state
+                ...state,
+                needRefresh: false
             };
 
         default:

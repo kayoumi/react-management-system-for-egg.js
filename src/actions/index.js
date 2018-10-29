@@ -13,6 +13,7 @@ export const LOGOUT = 'LOGOUT';
 export const ARTICLE_GET_ING = 'ARTICLE_GET_ING';
 export const ARTICLE_GET_SUCCESS = 'ARTICLE_GET_SUCCESS';
 export const ARTICLE_GET_ERROR = 'ARTICLE_GET_ERROR';
+export const ARTICLE_GET_DATA = 'ARTICLE_GET_DATA';
 export const ARTICLE_POST_ING = 'ARTICLE_POST_ING';
 export const ARTICLE_POST_SUCCESS = 'ARTICLE_POST_SUCCESS';
 export const ARTICLE_POST_ERROR = 'ARTICLE_POST_ERROR';
@@ -63,7 +64,7 @@ export function verifyLogin() {
         } else {
             dispatch(loginError(res.data.msg));
         }
-    }).catch((res) => dispatch(loginError(res.error)));
+    }).catch((res) => dispatch(loginError('请重新登录！')));
 }
 
 export function loginWithPSW(data) {
@@ -91,12 +92,10 @@ export function articleGetIng() {
     }
 }
 
-export function articleGetSuccess(data, page) {
+export function articleGetSuccess() {
     info('文章获取成功！');
     return {
-        type: ARTICLE_GET_SUCCESS,
-        page: page,
-        data: data
+        type: ARTICLE_GET_SUCCESS
     }
 }
 
@@ -107,6 +106,14 @@ export function articleGetError(err) {
     }
 }
 
+export function articleGetData(data, page) {
+    return {
+        type: ARTICLE_GET_DATA,
+        page: page,
+        data: data
+    }
+}
+
 export function articlePostIng() {
     info('文章提交中...');
     return {
@@ -114,11 +121,10 @@ export function articlePostIng() {
     }
 }
 
-export function articlePostSuccess(data) {
+export function articlePostSuccess() {
     info('文章提交成功！');
     return {
-        type: ARTICLE_POST_SUCCESS,
-        data: data
+        type: ARTICLE_POST_SUCCESS
     }
 }
 
@@ -140,6 +146,18 @@ export function articleHasRefreshed() {
     return {
         type: ARTICLE_HAS_REFREASHED
     }
+}
+
+export function postArticle(data) {
+    return dispatch => API.postArticle(data)
+    .then(res => {
+        if(res.data.code == 0) {
+            dispatch(articlePostSuccess());
+            dispatch(articleNeedRefresh());
+        } else {
+            dispatch(articlePostError());
+        }
+    }).catch(res => dispatch(articlePostError()));
 }
 
 
