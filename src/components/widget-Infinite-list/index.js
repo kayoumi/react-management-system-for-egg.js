@@ -12,10 +12,10 @@ const pageSize = 12;
 
 class InfiniteList extends React.Component {
     state = {
-        data: [],
-        loading: false,
-        hasMore: true,
-        page: 0
+      data: [],
+      loading: false,
+      hasMore: true,
+      page: 0
     }
     getData = (callback, pageStart) => {
       const page = pageStart ? pageStart : this.state.page + 1;
