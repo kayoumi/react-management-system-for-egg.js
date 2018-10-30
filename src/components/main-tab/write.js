@@ -24,7 +24,7 @@ const WriteForm = ({ isPosted, postArticle, form }) => {
             canResetForm = false;
             console.log('哈哈，重置表单！！！');
             // form.resetFields();
-            handleReset();
+            // handleReset();
         }
     }
 
@@ -52,10 +52,6 @@ const WriteForm = ({ isPosted, postArticle, form }) => {
         });
     };
 
-    const test = () => {
-        console.log('哈哈哈哈哈！！！！！');
-    }
-
     return (
         <Form
             onSubmit={ handleSubmit }
@@ -65,6 +61,7 @@ const WriteForm = ({ isPosted, postArticle, form }) => {
                 <h2>写文章</h2>
                 </Col>
                 <Col className="text-right" offset={14} span={5}>
+                    <Button className="mr-2" type="primary" onClick={ handleReset }>清空</Button>
                     <Button type="primary" htmlType="submit">提交</Button>
                 </Col>
             </Row>
